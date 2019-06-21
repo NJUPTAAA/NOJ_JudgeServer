@@ -5,15 +5,15 @@
 Install:
 
 ```shell
-go get -d github.com/QingdaoU/JudgeServer/client/go
+go get -d github.com/NJUPTAAA/JudgeServer/client/go
 ```
 
 Import:
 
 ```go
-import "github.com/QingdaoU/JudgeServer/client/go"
+import "github.com/NJUPTAAA/JudgeServer/client/go"
 ```
 
 # Examples
 
-[examples](https://github.com/QingdaoU/JudgeServer/tree/master/client/go/examples)
+[examples](https://github.com/NJUPTAAA/JudgeServer/tree/master/client/go/examples)

@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/QingdaoU/JudgeServer/client/go"
+	"github.com/NJUPTAAA/JudgeServer/client/go"
 	"fmt"
 )
 

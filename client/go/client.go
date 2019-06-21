@@ -10,11 +10,10 @@ import (
 	"fmt"
 )
 
-// Data 成员的类型参考 https://github.com/QingdaoU/Judger/blob/b6414e7a6715eb013b1ffeb7cfb04626a3ff5b4e/src/runner.h#L73
 type Data struct {
 	CpuTime   int
 	Result    int
-	Memory    int64 // https://github.com/QingdaoU/Judger/blob/b6414e7a6715eb013b1ffeb7cfb04626a3ff5b4e/src/runner.h#L76
+	Memory    int64
 	RealTime  int
 	Signal    int
 	Error     int
