@@ -1,7 +1,7 @@
 version: "3"
 services:
     judge_server:
-        image: github.com/njuptaaa/noj_judgeserver.git
+        image: njuptaaa/judge_server
         read_only: true
         cap_drop:
             - SETPCAP
