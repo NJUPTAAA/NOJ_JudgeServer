@@ -3,7 +3,16 @@ FROM ubuntu:16.04
 COPY build/java_policy /etc
 
 RUN buildDeps='software-properties-common git libtool cmake python-dev python3-pip python-pip libseccomp-dev' && \
-    apt-get update && apt-get install -y python python3.5 python-pkg-resources python3-pkg-resources gcc g++ $buildDeps && \
+    apt-get update && \
+    apt-get install -y \
+        python \
+        python3.5 \
+        python-pkg-resources \
+        python3-pkg-resources \
+        gcc \
+        g++ \
+        php7.3-cli \
+        $buildDeps && \
     add-apt-repository ppa:openjdk-r/ppa && apt-get update && apt-get install -y openjdk-8-jdk && \
     pip3 install --no-cache-dir psutil gunicorn flask requests && \
     cd /tmp && git clone --depth 1 https://github.com/NJUPTAAA/NOJ_Judger Judger && cd Judger && \
