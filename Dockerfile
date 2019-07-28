@@ -1,4 +1,4 @@
-FROM ubuntu:18.04
+FROM ubuntu:16.04
 
 COPY build/java_policy /etc
 
@@ -6,7 +6,7 @@ RUN buildDeps='software-properties-common apt-transport-https lsb-release ca-cer
     apt-get update && \
     apt-get install -y \
         python \
-        python3.7 \
+        python3.5 \
         python-pkg-resources \
         python3-pkg-resources \
         gcc \
@@ -28,5 +28,4 @@ ADD server /code
 WORKDIR /code
 RUN gcc -shared -fPIC -o unbuffer.so unbuffer.c
 EXPOSE 8080
-RUN chmod 744 /code/entrypoint.sh
 ENTRYPOINT /code/entrypoint.sh
