@@ -12,6 +12,7 @@ RUN buildDeps='software-properties-common apt-transport-https lsb-release ca-cer
         gcc \
         g++ \
         $buildDeps && \
+    export DEBIAN_FRONTEND=noninteractive && \
     add-apt-repository ppa:openjdk-r/ppa && apt-get update && apt-get install -y openjdk-8-jdk && \
     add-apt-repository ppa:ondrej/php && apt-get update && apt-get install -y php7.3-cli && \
     pip3 install --no-cache-dir psutil gunicorn flask requests && \
