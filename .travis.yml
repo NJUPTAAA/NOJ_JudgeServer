@@ -11,4 +11,5 @@ script:
     - docker-compose up -d
     - docker ps -a
     - sleep 5
+    - docker ps -a
     # - python tests/tests.py
