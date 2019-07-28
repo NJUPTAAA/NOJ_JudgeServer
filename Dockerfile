@@ -2,7 +2,7 @@ FROM ubuntu:18.04
 
 COPY build/java_policy /etc
 
-RUN buildDeps='software-properties-common git libtool cmake python-dev python3-pip python-pip libseccomp-dev' && \
+RUN buildDeps='software-properties-common apt-transport-https lsb-release ca-certificates git libtool cmake python-dev python3-pip python-pip libseccomp-dev' && \
     apt-get update && \
     apt-get install -y \
         python \
@@ -11,9 +11,9 @@ RUN buildDeps='software-properties-common git libtool cmake python-dev python3-p
         python3-pkg-resources \
         gcc \
         g++ \
-        php7.3-cli \
         $buildDeps && \
     add-apt-repository ppa:openjdk-r/ppa && apt-get update && apt-get install -y openjdk-8-jdk && \
+    add-apt-repository ppa:ondrej/php && apt-get update && apt-get install -y php7.3-cli && \
     pip3 install --no-cache-dir psutil gunicorn flask requests && \
     cd /tmp && git clone --depth 1 https://github.com/NJUPTAAA/NOJ_Judger Judger && cd Judger && \
     mkdir build && cd build && cmake .. && make && make install && cd ../bindings/Python && python3 setup.py install && \
