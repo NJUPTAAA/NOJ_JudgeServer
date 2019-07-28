@@ -2,6 +2,8 @@ version: "3"
 services:
     judge_server:
         image: njuptaaa/judge_server
+        container_name: judge-server
+        restart: always
         read_only: true
         cap_drop:
             - SETPCAP
