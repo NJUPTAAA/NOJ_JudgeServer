@@ -11,6 +11,7 @@ RUN buildDeps='software-properties-common apt-transport-https lsb-release ca-cer
         python3-pkg-resources \
         gcc \
         g++ \
+        libjavascriptcoregtk-4.0-bin \
         $buildDeps && \
     export DEBIAN_FRONTEND=noninteractive && \
     add-apt-repository ppa:openjdk-r/ppa && apt-get update && apt-get install -y openjdk-8-jdk && \
