@@ -2,7 +2,7 @@ FROM ubuntu:18.04
 
 COPY build/java_policy /etc
 
-RUN buildDeps='software-properties-common apt-transport-https lsb-release ca-certificates git libtool cmake python-dev python3-pip python-pip libseccomp-dev' && \
+RUN buildDeps='software-properties-common git libtool cmake python-dev python3-pip python-pip libseccomp-dev' && \
     apt-get update && \
     apt-get install -y \
         python \
@@ -12,6 +12,9 @@ RUN buildDeps='software-properties-common apt-transport-https lsb-release ca-cer
         gcc \
         g++ \
         libjavascriptcoregtk-4.0-bin \
+        apt-transport-https \
+        lsb-release \
+        ca-certificates \
         $buildDeps && \
     export DEBIAN_FRONTEND=noninteractive && \
     add-apt-repository ppa:openjdk-r/ppa && apt-get update && apt-get install -y openjdk-8-jdk && \
