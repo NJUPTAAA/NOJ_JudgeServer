@@ -12,6 +12,7 @@ RUN buildDeps='software-properties-common git libtool cmake python-dev python3-p
         gcc \
         g++ \
         libjavascriptcoregtk-4.0-bin \
+        golang \
         apt-transport-https \
         lsb-release \
         ca-certificates \
