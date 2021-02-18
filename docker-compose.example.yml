@@ -15,13 +15,13 @@ services:
         tmpfs:
             - /tmp
         volumes:
-            - $PWD/tests/test_case:/test_case:ro
-            - $PWD/log:/log
+            - $PWD/data/backend/test_case:/test_case:ro
+            - $PWD/data/judge_server/log:/log
+            - $PWD/data/judge_server/run:/judger
             # - $PWD/server:/code:ro
-            - $PWD/run:/judger
         environment:
-            - BACKEND_URL=http://backend:80/api/judge_server_heartbeat
-            - SERVICE_URL=http://judge-server:12358
+            - BACKEND_URL=https://acm.njupt.edu.cn
+            - SERVICE_URL=http://judge-server:8090
             - TOKEN=YOUR_TOKEN_HERE
         ports:
-            - "0.0.0.0:12358:8080"
+            - "0.0.0.0:8090:8080"
