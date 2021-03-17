@@ -4,7 +4,7 @@ import json
 import requests
 
 from languages import c_lang_config, cpp_lang_config, java_lang_config, c_lang_spj_config, \
-    c_lang_spj_compile, py2_lang_config, py3_lang_config
+    c_lang_spj_compile, py2_lang_config, py3_lang_config, go_lang_config
 
 
 class JudgeServerClientError(Exception):
@@ -75,9 +75,7 @@ if __name__ == "__main__":
 
     cpp_src = r"""
     #include <iostream>
-
     using namespace std;
-
     int main()
     {
         int a,b;
@@ -106,6 +104,15 @@ print int(s1[0]) + int(s1[1])"""
     py3_src = """s = input()
 s1 = s.split(" ")
 print(int(s1[0]) + int(s1[1]))"""
+
+    go_src = """package main
+import "fmt"
+func main() {
+    a := 0
+    b := 0
+    fmt.Scanf("%d %d", &a, &b)
+    fmt.Printf("%d", a + b)
+}"""
 
     client = JudgeServerClient(token=token, server_base_url="http://127.0.0.1:12358")
     print("ping")
@@ -141,12 +148,17 @@ print(int(s1[0]) + int(s1[1]))"""
     print("py2_judge")
     print(client.judge(src=py2_src, language_config=py2_lang_config,
                        max_cpu_time=1000, max_memory=128 * 1024 * 1024,
-                       test_case_id="normal"), "\n\n")
+                       test_case_id="normal", output=True), "\n\n")
 
     print("py3_judge")
     print(client.judge(src=py3_src, language_config=py3_lang_config,
                        max_cpu_time=1000, max_memory=128 * 1024 * 1024,
-                       test_case_id="normal"), "\n\n")
+                       test_case_id="normal", output=True), "\n\n")
+
+    print("go_judge")
+    print(client.judge(src=go_src, language_config=go_lang_config,
+                       max_cpu_time=1000, max_memory=128 * 1024 * 1024,
+                       test_case_id="normal", output=True), "\n\n")
 
     print("c_dynamic_input_judge")
     print(client.judge(src=c_src, language_config=c_lang_config,
