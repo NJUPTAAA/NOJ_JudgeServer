@@ -15,6 +15,8 @@ class Compiler(object):
         _command = command.split(" ")
 
         os.chdir(output_dir)
+        env = compile_config.get("env", [])
+        env.append("PATH=" + os.getenv("PATH"))
         result = _judger.run(max_cpu_time=compile_config["max_cpu_time"],
                              max_real_time=compile_config["max_real_time"],
                              max_memory=compile_config["max_memory"],
@@ -27,7 +29,7 @@ class Compiler(object):
                              output_path=compiler_out,
                              error_path=compiler_out,
                              args=_command[1::],
-                             env=["PATH=" + os.getenv("PATH")],
+                             env=env,
                              log_path=COMPILER_LOG_PATH,
                              seccomp_rule_name=None,
                              uid=COMPILER_USER_UID,
