@@ -12,15 +12,15 @@ RUN buildDeps='software-properties-common git libtool cmake python-dev python3-p
         gcc \
         g++ \
         libjavascriptcoregtk-4.0-bin \
-        golang \
         apt-transport-https \
         lsb-release \
         ca-certificates \
         $buildDeps && \
     export DEBIAN_FRONTEND=noninteractive && \
     add-apt-repository ppa:openjdk-r/ppa && apt-get update && apt-get install -y openjdk-8-jdk && \
+    add-apt-repository ppa:longsleep/golang-backports && apt-get update && apt-get install -y golang-go && \
     add-apt-repository ppa:ondrej/php && apt-get update && apt-get install -y php7.3-cli && \
-    pip3 install --no-cache-dir psutil gunicorn flask requests && \
+    pip3 install -I --no-cache-dir psutil gunicorn flask requests idna && \
     cd /tmp && git clone --depth 1 https://github.com/NJUPTAAA/NOJ_Judger Judger && cd Judger && \
     mkdir build && cd build && cmake .. && make && make install && cd ../bindings/Python && python3 setup.py install && \
     apt-get purge -y --auto-remove $buildDeps && \
