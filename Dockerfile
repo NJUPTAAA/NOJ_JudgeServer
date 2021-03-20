@@ -10,8 +10,12 @@ RUN buildDeps='software-properties-common git libtool cmake python-dev python3-p
         python3.7 \
         python-pkg-resources \
         python3-pkg-resources \
+        fp-compiler \
+        rustc \
+        haskell-platform \
         gcc \
         g++ \
+        ruby \
         mono-runtime \
         mono-mcs \
         libjavascriptcoregtk-4.0-bin \
