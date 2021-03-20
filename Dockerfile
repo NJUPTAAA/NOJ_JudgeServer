@@ -11,6 +11,8 @@ RUN buildDeps='software-properties-common git libtool cmake python-dev python3-p
         python3-pkg-resources \
         gcc \
         g++ \
+        mono-runtime \
+        mono-mcs \
         libjavascriptcoregtk-4.0-bin \
         apt-transport-https \
         lsb-release \
