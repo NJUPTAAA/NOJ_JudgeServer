@@ -3,6 +3,7 @@ FROM ubuntu:18.04
 COPY build/java_policy /etc
 
 RUN buildDeps='software-properties-common git libtool cmake python-dev python3-pip python-pip libseccomp-dev' && \
+    export DEBIAN_FRONTEND=noninteractive && \
     apt-get update && \
     apt-get install -y \
         python \
@@ -18,7 +19,6 @@ RUN buildDeps='software-properties-common git libtool cmake python-dev python3-p
         lsb-release \
         ca-certificates \
         $buildDeps && \
-    export DEBIAN_FRONTEND=noninteractive && \
     add-apt-repository ppa:openjdk-r/ppa && apt-get update && apt-get install -y openjdk-8-jdk && \
     add-apt-repository ppa:longsleep/golang-backports && apt-get update && apt-get install -y golang-go && \
     add-apt-repository ppa:ondrej/php && apt-get update && apt-get install -y php7.3-cli && \
