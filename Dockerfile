@@ -27,7 +27,7 @@ RUN buildDeps='software-properties-common git libtool cmake python-dev python3-p
     add-apt-repository ppa:longsleep/golang-backports && apt-get update && apt-get install -y golang-go && \
     add-apt-repository ppa:ondrej/php && apt-get update && apt-get install -y php7.3-cli && \
     cd /tmp && wget -O FreeBASIC.tar.gz https://versaweb.dl.sourceforge.net/project/fbc/Binaries%20-%20Linux/ubuntu-18.04/FreeBASIC-1.07.2-ubuntu-18.04-x86_64.tar.gz && \
-    tar zxvf FreeBASIC.tar.gz && rm -f FreeBASIC.tar.gz && cd /tmp/FreeBASIC && ./install.sh -i && rm -rf /tmp/FreeBASIC && \
+    tar zxvf FreeBASIC.tar.gz && rm -f FreeBASIC.tar.gz && cd /tmp/FreeBASIC-1.07.2-ubuntu-18.04-x86_64 && ./install.sh -i && cd /tmp && rm -rf /tmp/FreeBASIC-1.07.2-ubuntu-18.04-x86_64 && \
     pip3 install -I --no-cache-dir psutil gunicorn flask requests idna && \
     cd /tmp && git clone --depth 1 https://github.com/NJUPTAAA/NOJ_Judger Judger && cd Judger && \
     mkdir build && cd build && cmake .. && make && make install && cd ../bindings/Python && python3 setup.py install && \
