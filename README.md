@@ -13,6 +13,11 @@ Docker image:
 ```bash
 docker pull njuptaaa/judge_server
 ```
+
+## Babel Extension NOJ
+
+NOJ JudgeServer is driven by Babel Extension NOJ, see [Babel Extension NOJ](https://github.com/ZsgsDesign/NOJ/tree/master/app/Babel/Extension/noj) and [NOJ BABEL Github Public Mirror](https://njuptaaa.github.io/babel/) for more information.
+
 ## All Supported Languages and Examples
 
 |Language|Compile/Run Command|
