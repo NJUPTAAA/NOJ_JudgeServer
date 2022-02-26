@@ -29,6 +29,7 @@ RUN buildDeps='software-properties-common git libtool cmake python-dev python3-p
     cd /tmp && wget -O FreeBASIC.tar.gz https://versaweb.dl.sourceforge.net/project/fbc/Binaries%20-%20Linux/ubuntu-18.04/FreeBASIC-1.07.2-ubuntu-18.04-x86_64.tar.gz && \
     tar zxvf FreeBASIC.tar.gz && rm -f FreeBASIC.tar.gz && cd /tmp/FreeBASIC-1.07.2-ubuntu-18.04-x86_64 && ./install.sh -i && cd /tmp && rm -rf /tmp/FreeBASIC-1.07.2-ubuntu-18.04-x86_64 && \
     pip3 install -I --no-cache-dir psutil gunicorn flask requests idna && \
+    cd /opt && git clone https://github.com/MikeMirzayanov/testlib testlib && \
     cd /tmp && git clone --depth 1 https://github.com/NJUPTAAA/NOJ_Judger Judger && cd Judger && \
     mkdir build && cd build && cmake .. && make && make install && cd ../bindings/Python && python3 setup.py install && \
     apt-get purge -y --auto-remove $buildDeps && \
