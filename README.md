@@ -37,3 +37,26 @@ NOJ JudgeServer is driven by Babel Extension NOJ, see [Babel Extension NOJ](http
 |Free Pascal|/usr/bin/fpc -O2 -o{exe_path} {src_path}|
 |Plaintext|/bin/cat {exe_path}|
 |Free Basic|/usr/local/bin/fbc {src_path}|
+
+## Special Judge Support
+
+### SPJ Libraries
+
+Starting from NOJ `v0.18.0` and NOJ JudgeServer `v0.3.0`, NOJ JudgeServer provides a SPJ library called **nojlib**, it contains some useful constants and definitions. 
+
+Also starting from NOJ `v0.18.0` and NOJ JudgeServer `v0.3.0`, **testlib** would be bundled as a optional SPJ library of `C++`.
+
+Right now **nojlib** and **testlib** would be the only two SPJ libraries but we are planning to support more SPJ libraries in the future.
+
+### SPJ Languages
+
+NOJ JudgeServer provides SPJ support for `C` only prior to `v0.3.0`.
+
+Starting from NOJ `v0.18.0` and NOJ JudgeServer `v0.3.0`, NOJ JudgeServer provides support for `C++`, `Java` and `Python3`.
+
+|Language|Additional SPJ Libraries|
+|--------|-------------------|
+|C|nojlib|
+|C++|nojlib, testlib|
+|Java|nojlib|
+|Python3|nojlib|
