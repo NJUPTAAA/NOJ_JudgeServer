@@ -2,7 +2,10 @@ FROM ubuntu:18.04
 
 COPY build/java_policy /etc
 
-RUN buildDeps='software-properties-common git libtool cmake python-dev python3-pip python-pip libseccomp-dev wget ncurses-dev' && \
+RUN sed -i s/archive.ubuntu.com/mirrors.aliyun.com/g /etc/apt/sources.list && \
+    sed -i s/security.ubuntu.com/mirrors.aliyun.com/g /etc/apt/sources.list && \
+    apt-get update && apt-get upgrade && \ 
+    buildDeps='software-properties-common git libtool cmake python-dev python3-pip python-pip libseccomp-dev wget ncurses-dev' && \
     export DEBIAN_FRONTEND=noninteractive && \
     apt-get update && \
     apt-get install -y \
@@ -26,8 +29,8 @@ RUN buildDeps='software-properties-common git libtool cmake python-dev python3-p
     add-apt-repository ppa:openjdk-r/ppa && apt-get update && apt-get install -y openjdk-8-jdk && \
     add-apt-repository ppa:longsleep/golang-backports && apt-get update && apt-get install -y golang-go && \
     add-apt-repository ppa:ondrej/php && apt-get update && apt-get install -y php7.3-cli && \
-    cd /tmp && wget -O FreeBASIC.tar.gz https://versaweb.dl.sourceforge.net/project/fbc/Binaries%20-%20Linux/ubuntu-18.04/FreeBASIC-1.07.2-ubuntu-18.04-x86_64.tar.gz && \
-    tar zxvf FreeBASIC.tar.gz && rm -f FreeBASIC.tar.gz && cd /tmp/FreeBASIC-1.07.2-ubuntu-18.04-x86_64 && ./install.sh -i && cd /tmp && rm -rf /tmp/FreeBASIC-1.07.2-ubuntu-18.04-x86_64 && \
+    cd /tmp && wget -O FreeBASIC.tar.gz https://versaweb.dl.sourceforge.net/project/fbc/FreeBASIC-1.09.0/Binaries-Linux/ubuntu-18.04/FreeBASIC-1.09.0-ubuntu-18.04-x86_64.tar.gz && \
+    tar zxvf FreeBASIC.tar.gz && rm -f FreeBASIC.tar.gz && cd /tmp/FreeBASIC-1.09.0-ubuntu-18.04-x86_64 && ./install.sh -i && cd /tmp && rm -rf /tmp/FreeBASIC-1.09.0-ubuntu-18.04-x86_64 && \
     pip3 install -I --no-cache-dir psutil gunicorn flask requests idna && \
     cd /opt && git clone https://github.com/MikeMirzayanov/testlib testlib && \
     cd /tmp && git clone --depth 1 https://github.com/NJUPTAAA/NOJ_Judger Judger && cd Judger && \
