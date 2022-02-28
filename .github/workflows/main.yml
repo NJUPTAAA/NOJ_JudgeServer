@@ -9,7 +9,7 @@ on:
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: njuptaaa/judge_server:next # ${{ github.repository }}
+  IMAGE_NAME: njuptaaa/judge_server # ${{ github.repository }}
 
 jobs:
   build-and-push-image:
