@@ -5,13 +5,52 @@
 
 JudgeServer for NOJ, inspired by QDUOJ.
 
-## DockerHub
+## Compiled Images
 
-This package is available on [DockerHub](https://hub.docker.com/repository/docker/njuptaaa/judge_server).
+This package is available on [Docker Hub](https://hub.docker.com/repository/docker/njuptaaa/judge_server) and [Github Container Registry](https://github.com/orgs/NJUPTAAA/packages/container/package/judge_server).
 
-Docker image:
+You can download from *Docker Hub*:
+
 ```bash
 docker pull njuptaaa/judge_server
+```
+
+Since `v0.3.0` all version are pre-released on *Github Container Registry* then upload to Docker Hub later, thus you can download latest version from GHCR:
+
+```bash
+docker pull ghcr.io/njuptaaa/judge_server
+```
+
+You might want to specify a certain version of JudgeServer, for example, if you are using NOJ `v0.18.0`, you need at least JudgeServer `v0.3.0` for SPJ supporting libraries to function properly:
+
+```bash
+docker pull njuptaaa/judge_server:v0.3.0
+```
+
+You can download latest experimental build by using `master` tag, they are latest for sure, but may contain developing features that your NOJ version does not currently support:
+
+```bash
+docker pull njuptaaa/judge_server:master
+```
+
+### Compile Yourself
+
+You can compile NOJ JudgeServer yourself.
+
+```bash
+docker build . -t njuptaaa/judge_server
+```
+
+If you are using networks that have limited internet access, you can try using proxy to build. In the following example we using a proxy located on port 1080 of youe computer:
+
+```bash
+docker build . -t njuptaaa/judge_server --build-arg http_proxy=http://host.docker.internal:1080 --build-arg https_proxy=http://host.docker.internal:1080
+```
+
+If you are a resident of Chinese mainland, try using `Dockerfile.cn`, it is pre-configured to use some mirroring service:
+
+```bash
+docker build . -f Dockerfile.cn -t njuptaaa/judge_server
 ```
 
 ## Babel Extension NOJ
@@ -37,6 +76,8 @@ NOJ JudgeServer is driven by Babel Extension NOJ, see [Babel Extension NOJ](http
 |Free Pascal|/usr/bin/fpc -O2 -o{exe_path} {src_path}|
 |Plaintext|/bin/cat {exe_path}|
 |Free Basic|/usr/local/bin/fbc {src_path}|
+
+> Besides, `C++14`, `C++17` and `C11` are also supported, they are standards thus would not be listed from above.
 
 ## Special Judge Support
 
@@ -64,7 +105,7 @@ Starting from NOJ `v0.18.0` and NOJ JudgeServer `v0.3.0`, NOJ JudgeServer provid
 ### SPJ sample code
 
 ```cpp
-#include <stdio.h>
+#include <cstdio>
 
 #define AC 0
 #define WA 1

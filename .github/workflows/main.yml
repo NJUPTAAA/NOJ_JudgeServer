@@ -3,13 +3,13 @@ name: Create and publish a Docker image
 on:
   push:
     branches:
-    - master
+      - master
   release:
     types: [published]
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: njuptaaa/judge_server # ${{ github.repository }}
+  IMAGE_NAME: njuptaaa/judge_server
 
 jobs:
   build-and-push-image:
