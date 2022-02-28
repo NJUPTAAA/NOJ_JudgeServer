@@ -2,7 +2,10 @@ FROM ubuntu:18.04
 
 COPY build/java_policy /etc
 
-RUN buildDeps='software-properties-common git libtool cmake python-dev python3-pip python-pip libseccomp-dev wget ncurses-dev' && \
+RUN sed -i s/archive.ubuntu.com/mirrors.aliyun.com/g /etc/apt/sources.list && \
+    sed -i s/security.ubuntu.com/mirrors.aliyun.com/g /etc/apt/sources.list && \
+    apt-get update && apt-get upgrade && \ 
+    buildDeps='software-properties-common git libtool cmake python-dev python3-pip python-pip libseccomp-dev wget ncurses-dev' && \
     export DEBIAN_FRONTEND=noninteractive && \
     apt-get update && \
     apt-get install -y \
@@ -29,8 +32,8 @@ RUN buildDeps='software-properties-common git libtool cmake python-dev python3-p
     cd /tmp && wget -O FreeBASIC.tar.gz https://versaweb.dl.sourceforge.net/project/fbc/FreeBASIC-1.09.0/Binaries-Linux/ubuntu-18.04/FreeBASIC-1.09.0-ubuntu-18.04-x86_64.tar.gz && \
     tar zxvf FreeBASIC.tar.gz && rm -f FreeBASIC.tar.gz && cd /tmp/FreeBASIC-1.09.0-ubuntu-18.04-x86_64 && ./install.sh -i && cd /tmp && rm -rf /tmp/FreeBASIC-1.09.0-ubuntu-18.04-x86_64 && \
     pip3 install -I --no-cache-dir psutil gunicorn flask requests idna && \
-    cd /opt && git clone https://github.com/MikeMirzayanov/testlib testlib && \
-    cd /tmp && git clone --depth 1 https://github.com/NJUPTAAA/NOJ_Judger Judger && cd Judger && \
+    cd /opt && git clone https://ghproxy.com/https://github.com/MikeMirzayanov/testlib testlib && \
+    cd /tmp && git clone --depth 1 https://ghproxy.com/https://github.com/NJUPTAAA/NOJ_Judger Judger && cd Judger && \
     mkdir build && cd build && cmake .. && make && make install && cd ../bindings/Python && python3 setup.py install && \
     apt-get purge -y --auto-remove $buildDeps && \
     apt-get clean && rm -rf /var/lib/apt/lists/* && \
