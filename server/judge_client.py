@@ -11,10 +11,23 @@ from config import TEST_CASE_DIR, JUDGER_RUN_LOG_PATH, RUN_GROUP_GID, RUN_USER_U
 from exception import JudgeClientError
 from utils import ProblemIOMode
 
-SPJ_WA = 1
-SPJ_AC = 0
-SPJ_ERROR = -1
+NOJSPJ_AC = 0
+NOJSPJ_WA = 1
+NOJSPJ_ERROR = 255 # -1 in 8 bit
 
+TESTLIB_AC = 0
+TESTLIB_WA = 1
+TESTLIB_PE = 2
+TESTLIB_FAIL = 3
+TESTLIB_DIRT = 4
+TESTLIB_POINTS = 7
+TESTLIB_UNEXPECTED_EOF = 8
+# TESTLIB_PC_BASE = 50
+
+SPJ_WA = [NOJSPJ_WA, TESTLIB_PE, TESTLIB_POINTS, TESTLIB_UNEXPECTED_EOF]
+SPJ_AC = [NOJSPJ_AC]
+SPJ_ERROR = [NOJSPJ_ERROR, TESTLIB_FAIL, TESTLIB_DIRT]
+# SPJ_PC_THRESHOLD = TESTLIB_PC_BASE
 
 def _run(instance, test_case_file_id):
     return instance._judge_one(test_case_file_id)
@@ -91,10 +104,10 @@ class JudgeClient(object):
 
         if result["result"] == _judger.RESULT_SUCCESS or \
                 (result["result"] == _judger.RESULT_RUNTIME_ERROR and
-                 result["exit_code"] in [SPJ_WA, SPJ_ERROR] and result["signal"] == 0):
+                 result["exit_code"] in (SPJ_WA + SPJ_ERROR) and result["signal"] == 0):
             return result["exit_code"]
         else:
-            return SPJ_ERROR
+            return SPJ_ERROR[0]
 
     def _judge_one(self, test_case_file_id):
         test_case_info = self._get_test_case_file_info(test_case_file_id)
@@ -153,9 +166,9 @@ class JudgeClient(object):
 
                     spj_result = self._spj(in_file_path=in_file, user_out_file_path=user_output_file)
 
-                    if spj_result == SPJ_WA:
+                    if spj_result in SPJ_WA:
                         run_result["result"] = _judger.RESULT_WRONG_ANSWER
-                    elif spj_result == SPJ_ERROR:
+                    elif spj_result in SPJ_ERROR:
                         run_result["result"] = _judger.RESULT_SYSTEM_ERROR
                         run_result["error"] = _judger.ERROR_SPJ_ERROR
                 else:
