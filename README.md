@@ -157,13 +157,13 @@ int spj(FILE *input, FILE *user_output){
 }
 ```
 
-Input: **3**
-Output: **3**
-Verdict: **Accepted**
+Input: **3**  
+Output: **3**  
+Verdict: **Accepted**  
 
-Input: **3**
-Output: **4**
-Verdict: **Wrong Answer**
+Input: **3**  
+Output: **4**  
+Verdict: **Wrong Answer**  
 
 #### C++ with testlib support
 
@@ -221,18 +221,51 @@ int spj(FILE *input, FILE *user_output){
 }
 ```
 
-Input: **3**
-Output: **1.732050**
-Verdict: **Accepted**
+Input: **3**  
+Output: **1.732050**  
+Verdict: **Accepted**  
 
-Input: **3**
-Output: **1.732051**
-Verdict: **Accepted**
+Input: **3**  
+Output: **1.732051**  
+Verdict: **Accepted**  
 
-Input: **3**
-Output: **1.732059**
-Verdict: **Accepted**
+Input: **3**  
+Output: **1.732059**  
+Verdict: **Accepted**  
 
-Input: **3**
-Output: **1.732089**
-Verdict: **Wrong Answer**
+Input: **3**  
+Output: **1.732089**  
+Verdict: **Wrong Answer**  
+
+#### PHP SPJ Support
+
+NOJ JudgeServer Provides exclusive PHP SPJ supports for contest arrangers to be benefited from this dynamic, weakly typed and *artistic* language.
+
+```php
+<?php
+    const ACCEPTED = 0;
+    const WRONG_ANSWER = 1;
+    const SYSTEM_ERROR = -1;
+
+    if($argc != 3){
+        printf("Usage: php {$argv[0]} x.in x.out\n");
+        exit(SYSTEM_ERROR);
+    }
+
+    $input = fopen($argv[1], "r");
+    $user_output = fopen($argv[2], "r");
+
+    if($input === false || $user_output === false){
+        printf("Failed to open output file\n");
+        exit(SYSTEM_ERROR);
+    }
+
+    fscanf($input, "%d", $b);
+    if(fscanf($user_output, "%d", $a) !== false) {
+        if($a == $b){
+            exit(ACCEPTED);
+        }
+    }
+
+    exit(WRONG_ANSWER);
+```
