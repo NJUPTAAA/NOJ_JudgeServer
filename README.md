@@ -85,22 +85,54 @@ NOJ JudgeServer is driven by Babel Extension NOJ, see [Babel Extension NOJ](http
 
 Starting from NOJ `v0.18.0` and NOJ JudgeServer `v0.3.0`, NOJ JudgeServer provides a SPJ library called **testlib**, it contains some useful constants and definitions and it would be bundled as a optional SPJ library of `C++`.
 
-Right now **testlib** would be the only two SPJ libraries but we are planning to support more SPJ libraries in the future.
+Right now **testlib** would be the only SPJ library available but we are planning to support more SPJ libraries in the future.
 
 ### SPJ Checker Languages
 
-NOJ JudgeServer provides SPJ support for `C` only prior to `v0.3.0`.
+NOJ JudgeServer provides SPJ support for `C` language only prior to `v0.3.0`.
 
-Starting from NOJ `v0.18.0` and NOJ JudgeServer `v0.3.0`, NOJ JudgeServer provides support for `C++`, `PHP` and `Python3`.
+Starting from NOJ `v0.18.0` and NOJ JudgeServer `v0.3.0`, NOJ JudgeServer provides additional support for `C++` and `PHP`.
 
 |Language|Compiler|Additional SPJ Libraries|
 |--------|--------|------------------------|
 |C|gcc (C99)|-|
 |C++|g++ (C++11)|testlib|
 |PHP|php (7.3-cli)|-|
-|Python3|python3.7|testlib|
+
+### Migration from version prior to v0.3.0
+
+Older versions of NOJ JudgeServer SPJs are feeded with testcase input and user output only. While in latest version of `v0.3.0`, It becomes testcase input, testcase output and user output. The changes not only grants testcase output access to SPJs, but also alters the given order. Thus all legacy version of SPJ need to:
+
+1. Alter accepted `argc` to 4 and accepts testcase input as first, testcase output as second and user output as third;
+2. Re-bundle testcases archive file to include .out files, then use NOJ v0.18.0 Admin Portal to re-upload the testcases, the `.out` files, if not needed, can be blank or simply the same as input.
 
 ### SPJ sample code
+
+#### SPJ Cheatsheet
+
+Here lists all valid exit code for SPJ:
+
+|Verdict|Exit Codes|
+|--------|--------|
+|Accepted|0|
+|Wrong Answer|1, 2, 4, 8|
+|System Error|3, 7, 255|
+
+All unlisted exit codes would be viewed as **System Error**.
+
+> Since Linux only accepts last 8 bits of exit code, you can practically use `-1` for **System Error** for it actually converts to `255`. You can also use `-255` (`1`) for **Wrong Answer** or `-253` (`3`) for **System Error**, etc.
+
+For C++ with testlib support, you can use testlib `quitf` function and macro defined `_wa`, `_ok` and so on without any conversion except `Points` and `Partically Accepted` status. NOJ Judge Server would recognize them properly and auto-convert them to NOJ JudgeServer standard.
+
+|NOJ Verdict|Testlib Verdict|
+|--------|--------|
+|Accepted|`_ok`|
+|Wrong Answer|`_wa`, `_pe`, `_dirt`, `_unexpected_eof`|
+|System Error|`_fail`, `_points`, `_partically`, `_pc`|
+
+For `Points` and `Partically Accepted` status, NOJ would verdict them all **System Error** no matter what score this SPJ actually nailed. For NOJ does not support single testcase with divided score.
+
+> We may support single-testcase-wide partically accepted status in the future.
 
 #### Clang without any libraries
 
@@ -245,7 +277,7 @@ class Judge
         return Judge::WRONG_ANSWER;
     }
 
-    public function getVerdict()
+    public function getVerdict(): int
     {
         return $this->verdict ?? $this->judge();
     }
