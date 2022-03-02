@@ -27,10 +27,10 @@ You might want to specify a certain version of JudgeServer, for example, if you 
 docker pull njuptaaa/judge_server:v0.3.0
 ```
 
-You can download latest experimental build by using `master` tag, they are latest for sure, but may contain developing features that your NOJ version does not currently support:
+You can download latest experimental build by using `nightly` tag, they are latest for sure, but may contain developing features that your NOJ version does not currently support:
 
 ```bash
-docker pull njuptaaa/judge_server:master
+docker pull njuptaaa/judge_server:nightly
 ```
 
 ### Compile Yourself
