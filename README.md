@@ -104,7 +104,7 @@ Starting from NOJ `v0.18.0` and NOJ JudgeServer `v0.3.0`, NOJ JudgeServer provid
 
 #### Clang without any libraries
 
-Here is a simple SPJ checker written in `Clang`, this checker checks if the user output equals the given testcase:
+Here is a simple SPJ checker written in `Clang`, this checker checks if the integer user outputs equals the given testcase:
 
 ```cpp
 #include <stdio.h>
@@ -159,120 +159,97 @@ int spj(FILE *input, FILE *output, FILE *user_output){
     return WA;
 }
 ```
-
-Input: **3**  
-Output: **3**  
-Verdict: **Accepted**  
-
-Input: **3**  
-Output: **4**  
-Verdict: **Wrong Answer**  
 
 #### C++ with testlib support
 
-Here is a simple SPJ checker written in `C++` with testlib support, this checker checks if the user output equals the square root of the given testcase, with a tolerance scope of 1:
+Here is a simple SPJ checker written in `C++` with testlib support, this checker checks if the integer user outputs equals the given testcase:
 
 ```cpp
 #include <testlib>
-#include <stdio.h>
 
-#define AC 0
-#define WA 1
-#define ERROR -1
-
-int spj(FILE *input, FILE *output, FILE *user_output);
-
-void close_file(FILE *f){
-    if(f != NULL){
-        fclose(f);
-    }
+int main(int argc, char * argv[]) {
+    setName("compares two signed integers");
+    registerTestlibCmd(argc, argv);
+    int ja = ans.readInt();
+    int pa = ouf.readInt();
+    if (ja != pa) quitf(_wa, "expected %d, found %d", ja, pa);
+    quitf(_ok, "answer is %d", ja);
 }
-
-int main(int argc, char *args[]){
-    FILE *input = NULL, *output = NULL, *user_output = NULL;
-    int result;
-    if(argc != 4){
-        printf("Usage: spj x.in x.out x.ans\n");
-        return ERROR;
-    }
-    input = fopen(args[1], "r");
-    output = fopen(args[2], "r");
-    user_output = fopen(args[3], "r");
-    if(input == NULL || output == NULL || user_output == NULL){
-        printf("Failed to open output file\n");
-        close_file(input);
-        close_file(output);
-        close_file(user_output);
-        return ERROR;
-    }
-
-    result = spj(input, output, user_output);
-    printf("result: %d\n", result);
-    
-    close_file(input);
-    close_file(output);
-    close_file(user_output);
-    return result;
-}
-
-int spj(FILE *input, FILE *output, FILE *user_output){
-    int a, b;
-    fscanf(output, "%d", &b);
-    if(~fscanf(user_output, "%d", &a)) {
-        if(a == b){
-            return AC;
-        }
-    }
-    return WA;
-}
-```
-
-Input: **3**  
-Output: **1.732050**  
-Verdict: **Accepted**  
-
-Input: **3**  
-Output: **1.732051**  
-Verdict: **Accepted**  
-
-Input: **3**  
-Output: **1.732059**  
-Verdict: **Accepted**  
-
-Input: **3**  
-Output: **1.732089**  
-Verdict: **Wrong Answer**  
+``` 
 
 #### PHP SPJ Support
 
-NOJ JudgeServer Provides exclusive PHP SPJ supports for contest arrangers to be benefited from this dynamic, weakly typed and *artistic* language.
+NOJ JudgeServer Provides exclusive `php` language SPJ supports for contest arrangers to be benefited from this dynamic, weakly typed and *artistic* language, this checker checks if the integer user outputs equals the given testcase:
 
 ```php
 <?php
-    const ACCEPTED = 0;
-    const WRONG_ANSWER = 1;
-    const SYSTEM_ERROR = -1;
 
-    if($argc != 4){
-        printf("Usage: php {$argv[0]} x.in x.out x.ans\n");
-        exit(SYSTEM_ERROR);
+class Judge
+{
+    private const ACCEPTED = 0;
+    private const WRONG_ANSWER = 1;
+    private const SYSTEM_ERROR = -1;
+
+    private $input = false;
+    private $output = false;
+    private $user_output = false;
+
+    private $verdict = null;
+
+    private function settleVerdict(int $ret = 0): void
+    {
+        if ($this->input !== false) {
+            fclose($this->input);
+        }
+        if ($this->output !== false) {
+            fclose($this->output);
+        }
+        if ($this->user_output !== false) {
+            fclose($this->user_output);
+        }
+        $this->verdict = $ret;
     }
 
-    $input = fopen($argv[1], "r");
-    $output = fopen($argv[2], "r");
-    $user_output = fopen($argv[3], "r");
+    public function __construct($argc, $argv)
+    {
+        if ($argc != 4) {
+            printf("Usage: php {$argv[0]} x.in x.out x.ans\n");
+            $this->settleVerdict(Judge::SYSTEM_ERROR);
+            return;
+        }
 
-    if($input === false || $output === false || $user_output === false){
-        printf("Failed to open output file\n");
-        exit(SYSTEM_ERROR);
-    }
+        $this->input = fopen($argv[1], "r");
+        $this->output = fopen($argv[2], "r");
+        $this->user_output = fopen($argv[3], "r");
 
-    fscanf($output, "%d", $b);
-    if(fscanf($user_output, "%d", $a) !== false) {
-        if($a == $b){
-            exit(ACCEPTED);
+        if ($this->input === false || $this->output === false || $this->user_output === false) {
+            printf("Failed to open output file\n");
+            $this->settleVerdict(Judge::SYSTEM_ERROR);
+            return;
         }
     }
 
-    exit(WRONG_ANSWER);
+    public static function register($argc, $argv): Judge
+    {
+        return new Judge($argc, $argv);
+    }
+
+    private function judge(): int
+    {
+        fscanf($this->output, "%d", $b);
+        if (fscanf($this->user_output, "%d", $a) !== false) {
+            if ($a == $b) {
+                return Judge::ACCEPTED;
+            }
+        }
+        return Judge::WRONG_ANSWER;
+    }
+
+    public function getVerdict()
+    {
+        return $this->verdict ?? $this->judge();
+    }
+}
+
+exit(Judge::register($argc, $argv)->getVerdict());
 ```
