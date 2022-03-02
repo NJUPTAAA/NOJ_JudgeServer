@@ -113,7 +113,7 @@ Here is a simple SPJ checker written in `Clang`, this checker checks if the user
 #define WA 1
 #define ERROR -1
 
-int spj(FILE *input, FILE *user_output);
+int spj(FILE *input, FILE *output, FILE *user_output);
 
 void close_file(FILE *f){
     if(f != NULL){
@@ -122,32 +122,35 @@ void close_file(FILE *f){
 }
 
 int main(int argc, char *args[]){
-    FILE *input = NULL, *user_output = NULL;
+    FILE *input = NULL, *output = NULL, *user_output = NULL;
     int result;
-    if(argc != 3){
-        printf("Usage: spj x.in x.out\n");
+    if(argc != 4){
+        printf("Usage: spj x.in x.out x.ans\n");
         return ERROR;
     }
     input = fopen(args[1], "r");
-    user_output = fopen(args[2], "r");
-    if(input == NULL || user_output == NULL){
+    output = fopen(args[2], "r");
+    user_output = fopen(args[3], "r");
+    if(input == NULL || output == NULL || user_output == NULL){
         printf("Failed to open output file\n");
         close_file(input);
+        close_file(output);
         close_file(user_output);
         return ERROR;
     }
 
-    result = spj(input, user_output);
+    result = spj(input, output, user_output);
     printf("result: %d\n", result);
     
     close_file(input);
+    close_file(output);
     close_file(user_output);
     return result;
 }
 
-int spj(FILE *input, FILE *user_output){
+int spj(FILE *input, FILE *output, FILE *user_output){
     int a, b;
-    fscanf(input, "%d", &b);
+    fscanf(output, "%d", &b);
     if(~fscanf(user_output, "%d", &a)) {
         if(a == b){
             return AC;
@@ -170,14 +173,14 @@ Verdict: **Wrong Answer**
 Here is a simple SPJ checker written in `C++` with testlib support, this checker checks if the user output equals the square root of the given testcase, with a tolerance scope of 1:
 
 ```cpp
-#include <cstdio>
-#include <testlib.h>
+#include <testlib>
+#include <stdio.h>
 
 #define AC 0
 #define WA 1
 #define ERROR -1
 
-int spj(FILE *input, FILE *user_output);
+int spj(FILE *input, FILE *output, FILE *user_output);
 
 void close_file(FILE *f){
     if(f != NULL){
@@ -186,32 +189,35 @@ void close_file(FILE *f){
 }
 
 int main(int argc, char *args[]){
-    FILE *input = NULL, *user_output = NULL;
+    FILE *input = NULL, *output = NULL, *user_output = NULL;
     int result;
-    if(argc != 3){
-        printf("Usage: spj x.in x.out\n");
+    if(argc != 4){
+        printf("Usage: spj x.in x.out x.ans\n");
         return ERROR;
     }
     input = fopen(args[1], "r");
-    user_output = fopen(args[2], "r");
-    if(input == NULL || user_output == NULL){
+    output = fopen(args[2], "r");
+    user_output = fopen(args[3], "r");
+    if(input == NULL || output == NULL || user_output == NULL){
         printf("Failed to open output file\n");
         close_file(input);
+        close_file(output);
         close_file(user_output);
         return ERROR;
     }
 
-    result = spj(input, user_output);
+    result = spj(input, output, user_output);
     printf("result: %d\n", result);
     
     close_file(input);
+    close_file(output);
     close_file(user_output);
     return result;
 }
 
-int spj(FILE *input, FILE *user_output){
+int spj(FILE *input, FILE *output, FILE *user_output){
     int a, b;
-    fscanf(input, "%d", &b);
+    fscanf(output, "%d", &b);
     if(~fscanf(user_output, "%d", &a)) {
         if(a == b){
             return AC;
@@ -247,20 +253,21 @@ NOJ JudgeServer Provides exclusive PHP SPJ supports for contest arrangers to be 
     const WRONG_ANSWER = 1;
     const SYSTEM_ERROR = -1;
 
-    if($argc != 3){
-        printf("Usage: php {$argv[0]} x.in x.out\n");
+    if($argc != 4){
+        printf("Usage: php {$argv[0]} x.in x.out x.ans\n");
         exit(SYSTEM_ERROR);
     }
 
     $input = fopen($argv[1], "r");
-    $user_output = fopen($argv[2], "r");
+    $output = fopen($argv[2], "r");
+    $user_output = fopen($argv[3], "r");
 
-    if($input === false || $user_output === false){
+    if($input === false || $output === false || $user_output === false){
         printf("Failed to open output file\n");
         exit(SYSTEM_ERROR);
     }
 
-    fscanf($input, "%d", $b);
+    fscanf($output, "%d", $b);
     if(fscanf($user_output, "%d", $a) !== false) {
         if($a == $b){
             exit(ACCEPTED);
