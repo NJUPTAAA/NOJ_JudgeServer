@@ -41,7 +41,7 @@ You can compile NOJ JudgeServer yourself.
 docker build . -t njuptaaa/judge_server
 ```
 
-If you are using networks that have limited internet access, you can try using proxy to build. In the following example we using a proxy located on port 1080 of youe computer:
+If you are using networks that have limited internet access, you can try using proxy to build. In the following example we using a proxy located on port 1080 of your computer:
 
 ```bash
 docker build . -t njuptaaa/judge_server --build-arg http_proxy=http://host.docker.internal:1080 --build-arg https_proxy=http://host.docker.internal:1080
