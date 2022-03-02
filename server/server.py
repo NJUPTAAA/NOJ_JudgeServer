@@ -123,16 +123,19 @@ class JudgeServer:
 
                     with open(os.path.join(test_case_dir, input_name), "wb") as f:
                         f.write(input_data)
-                    if not is_spj:
-                        output_name = str(index) + ".out"
-                        item_info["output_name"] = output_name
-                        output_data = item["output"].encode("utf-8")
-                        item_info["output_md5"] = hashlib.md5(output_data).hexdigest()
-                        item_info["output_size"] = len(output_data)
-                        item_info["stripped_output_md5"] = hashlib.md5(output_data.rstrip()).hexdigest()
 
-                        with open(os.path.join(test_case_dir, output_name), "wb") as f:
-                            f.write(output_data)
+                    # Since NOJ 0.18.0 and JudgeServer 0.3.0, output file should be provided even for SPJ files
+
+                    output_name = str(index) + ".out"
+                    item_info["output_name"] = output_name
+                    output_data = item["output"].encode("utf-8")
+                    item_info["output_md5"] = hashlib.md5(output_data).hexdigest()
+                    item_info["output_size"] = len(output_data)
+                    item_info["stripped_output_md5"] = hashlib.md5(output_data.rstrip()).hexdigest()
+
+                    with open(os.path.join(test_case_dir, output_name), "wb") as f:
+                        f.write(output_data)
+                    
                     info["test_cases"][index] = item_info
                 with open(os.path.join(test_case_dir, "info"), "w") as f:
                     json.dump(info, f)
