@@ -1,5 +1,9 @@
 FROM ubuntu:18.04
 
+LABEL org.opencontainers.image.authors="zsgsdesign@gmail.com"
+LABEL org.opencontainers.image.vendor="NJUPTAAA"
+LABEL org.opencontainers.image.documentation="https://njuptaaa.github.io/docs/#/judgeserver/deploy"
+
 COPY build/java_policy /etc
 
 RUN buildDeps='software-properties-common git libtool cmake python-dev python3-pip python-pip libseccomp-dev wget ncurses-dev' && \
@@ -36,6 +40,8 @@ RUN buildDeps='software-properties-common git libtool cmake python-dev python3-p
     apt-get clean && rm -rf /var/lib/apt/lists/* && \
     mkdir -p /code && \
     useradd -u 12001 compiler && useradd -u 12002 code && useradd -u 12003 spj && usermod -a -G code spj
+
+ENV NJS_VERSION v0.3.0-Triangle
 
 ADD server /code
 WORKDIR /code
