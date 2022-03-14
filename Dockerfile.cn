@@ -9,6 +9,7 @@ COPY build/java_policy /etc
 RUN sed -i s/archive.ubuntu.com/mirrors.aliyun.com/g /etc/apt/sources.list && \
     sed -i s/security.ubuntu.com/mirrors.aliyun.com/g /etc/apt/sources.list && \
     apt-get update && apt-get upgrade && \ 
+    curl -sL https://deb.nodesource.com/setup_16.x | sudo -E bash - && \
     buildDeps='software-properties-common git libtool cmake python-dev python3-pip python-pip libseccomp-dev wget ncurses-dev' && \
     export DEBIAN_FRONTEND=noninteractive && \
     apt-get update && \
@@ -25,7 +26,7 @@ RUN sed -i s/archive.ubuntu.com/mirrors.aliyun.com/g /etc/apt/sources.list && \
         ruby \
         mono-runtime \
         mono-mcs \
-        libjavascriptcoregtk-4.0-bin \
+        nodejs \
         apt-transport-https \
         lsb-release \
         ca-certificates \

@@ -6,7 +6,8 @@ LABEL org.opencontainers.image.documentation="https://njuptaaa.github.io/docs/#/
 
 COPY build/java_policy /etc
 
-RUN buildDeps='software-properties-common git libtool cmake python-dev python3-pip python-pip libseccomp-dev wget ncurses-dev' && \
+RUN curl -sL https://deb.nodesource.com/setup_16.x | sudo -E bash - && \
+    buildDeps='software-properties-common git libtool cmake python-dev python3-pip python-pip libseccomp-dev wget ncurses-dev' && \
     export DEBIAN_FRONTEND=noninteractive && \
     apt-get update && \
     apt-get install -y \
@@ -22,7 +23,7 @@ RUN buildDeps='software-properties-common git libtool cmake python-dev python3-p
         ruby \
         mono-runtime \
         mono-mcs \
-        libjavascriptcoregtk-4.0-bin=2.20.1-1 \
+        nodejs \
         apt-transport-https \
         lsb-release \
         ca-certificates \
