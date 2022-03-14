@@ -22,7 +22,7 @@ RUN buildDeps='software-properties-common git libtool cmake python-dev python3-p
         ruby \
         mono-runtime \
         mono-mcs \
-        libjavascriptcoregtk-4.0-bin \
+        libjavascriptcoregtk-4.0-bin=2.30.5-0ubuntu0.18.04.1 \
         apt-transport-https \
         lsb-release \
         ca-certificates \
