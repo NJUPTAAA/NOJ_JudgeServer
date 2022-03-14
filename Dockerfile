@@ -6,8 +6,7 @@ LABEL org.opencontainers.image.documentation="https://njuptaaa.github.io/docs/#/
 
 COPY build/java_policy /etc
 
-RUN curl -sL https://deb.nodesource.com/setup_16.x | sudo -E bash - && \
-    buildDeps='software-properties-common git libtool cmake python-dev python3-pip python-pip libseccomp-dev wget ncurses-dev' && \
+RUN buildDeps='software-properties-common git libtool cmake python-dev python3-pip python-pip libseccomp-dev wget ncurses-dev' && \
     export DEBIAN_FRONTEND=noninteractive && \
     apt-get update && \
     apt-get install -y \
@@ -23,11 +22,11 @@ RUN curl -sL https://deb.nodesource.com/setup_16.x | sudo -E bash - && \
         ruby \
         mono-runtime \
         mono-mcs \
-        nodejs \
         apt-transport-https \
         lsb-release \
         ca-certificates \
         $buildDeps && \
+    curl -sL https://deb.nodesource.com/setup_16.x | bash - && apt-get install -y nodejs && \
     add-apt-repository ppa:openjdk-r/ppa && apt-get update && apt-get install -y openjdk-8-jdk && \
     add-apt-repository ppa:longsleep/golang-backports && apt-get update && apt-get install -y golang-go && \
     add-apt-repository ppa:ondrej/php && apt-get update && apt-get install -y php7.3-cli && \
