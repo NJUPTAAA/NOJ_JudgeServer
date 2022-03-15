@@ -21,10 +21,10 @@ Since `v0.3.0` all version are pre-released on *Github Container Registry* then 
 docker pull ghcr.io/njuptaaa/judge_server
 ```
 
-You might want to specify a certain version of JudgeServer, for example, if you are using NOJ `v0.18.0`, you need at least JudgeServer `v0.3.0` for SPJ supporting libraries to function properly:
+You might want to specify a certain version of JudgeServer, for example, if you are using NOJ `v0.18.0`, you need at least JudgeServer `v0.3.1` for SPJ supporting libraries and Node.js compiler to function properly:
 
 ```bash
-docker pull njuptaaa/judge_server:v0.3.0
+docker pull njuptaaa/judge_server:v0.3.1
 ```
 
 You can download latest experimental build by using `nightly` tag, they are latest for sure, but may contain developing features that your NOJ version does not currently support:
