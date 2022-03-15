@@ -67,7 +67,7 @@ NOJ JudgeServer is driven by Babel Extension NOJ, see [Babel Extension NOJ](http
 |Python2|/usr/bin/python -m py_compile {src_path}<br>/usr/bin/python {exe_path}|
 |Python3|/usr/bin/python3.7 -m py_compile {src_path}<br>/usr/bin/python3.7 {exe_path}|
 |PHP7|/usr/bin/php {exe_path}|
-|Node.js|/usr/bin/node --stack-size=65536 {exe_path}|
+|Node.js 16|/usr/bin/node --stack-size=65536 {exe_path}|
 |Go|/usr/bin/go build -o {exe_path} {src_path}|
 |C#|/usr/bin/mcs -optimize+ -out:{exe_path} {src_path}|
 |Ruby|/usr/bin/ruby {exe_path}|
