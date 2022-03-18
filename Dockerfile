@@ -29,7 +29,7 @@ RUN buildDeps='software-properties-common git libtool cmake python-dev python3-p
     curl -sL https://deb.nodesource.com/setup_16.x | bash - && apt-get install -y nodejs && \
     add-apt-repository ppa:openjdk-r/ppa && apt-get update && apt-get install -y openjdk-8-jdk && \
     add-apt-repository ppa:longsleep/golang-backports && apt-get update && apt-get install -y golang-go && \
-    add-apt-repository ppa:ondrej/php && apt-get update && apt-get install -y php7.3-cli && \
+    add-apt-repository ppa:ondrej/php && apt-get update && apt-get install -y php8.1-cli && \
     cd /tmp && wget -O FreeBASIC.tar.gz https://versaweb.dl.sourceforge.net/project/fbc/FreeBASIC-1.09.0/Binaries-Linux/ubuntu-18.04/FreeBASIC-1.09.0-ubuntu-18.04-x86_64.tar.gz && \
     tar zxvf FreeBASIC.tar.gz && rm -f FreeBASIC.tar.gz && cd /tmp/FreeBASIC-1.09.0-ubuntu-18.04-x86_64 && ./install.sh -i && cd /tmp && rm -rf /tmp/FreeBASIC-1.09.0-ubuntu-18.04-x86_64 && \
     pip3 install -I --no-cache-dir psutil gunicorn flask requests idna && \
