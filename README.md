@@ -80,8 +80,8 @@ NOJ JudgeServer is driven by Babel Extension NOJ, see [Babel Extension NOJ](http
 |Free Pascal|/usr/bin/fpc -O2 -o{exe_path} {src_path}|
 |Plaintext|/bin/cat {exe_path}|
 |Free Basic|/usr/local/bin/fbc {src_path}|
-|Assembly 32bits|/usr/bin/nasm -f elf32 -o {exe_path}.o {src_path} && gcc -m32 -o {exe_path} {exe_path}.o|
-|Assembly 64bits|/usr/bin/nasm -f elf64 -o {exe_path}.o {src_path} && gcc -o {exe_path} {exe_path}.o|
+|Assembly (32bit)|/usr/bin/nasm -f elf32 -o {exe_path}.o {src_path} && /usr/bin/gcc -m32 -o {exe_path} {exe_path}.o|
+|Assembly (64bit)|/usr/bin/nasm -f elf64 -o {exe_path}.o {src_path} && /usr/bin/gcc -o {exe_path} {exe_path}.o|
 |SystemVerilog 2012|/usr/bin/iverilog -g2012 -o {exe_path} {src_path}<br>/usr/bin/vvp {exe_path}|
 
 ## Special Judge Support

@@ -5,13 +5,13 @@ LABEL org.opencontainers.image.vendor="NJUPTAAA"
 LABEL org.opencontainers.image.documentation="https://njuptaaa.github.io/docs/#/judgeserver/deploy"
 
 COPY build/java_policy /etc
+COPY --chmod=0755 build/nojasm-compiler /usr/bin
 
 RUN buildDeps='software-properties-common git libtool cmake python-dev python3-pip python-pip libseccomp-dev wget ncurses-dev curl' && \
     export DEBIAN_FRONTEND=noninteractive && \
     apt-get update && \
     apt-get install -y \
         python \
-        python3.10 \
         python-pkg-resources \
         python3-pkg-resources \
         fp-compiler \
@@ -30,6 +30,7 @@ RUN buildDeps='software-properties-common git libtool cmake python-dev python3-p
         ca-certificates \
         $buildDeps && \
     curl -sL https://deb.nodesource.com/setup_16.x | bash - && apt-get install -y nodejs && \
+    add-apt-repository ppa:deadsnakes/ppa && apt-get update && apt-get install -y python3.10 && \
     add-apt-repository ppa:openjdk-r/ppa && apt-get update && apt-get install -y openjdk-8-jdk openjdk-17-jdk && \
     add-apt-repository ppa:longsleep/golang-backports && apt-get update && apt-get install -y golang-go && \
     add-apt-repository ppa:ondrej/php && apt-get update && apt-get install -y php8.1-cli && \
