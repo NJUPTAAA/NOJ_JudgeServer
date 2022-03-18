@@ -11,7 +11,7 @@ RUN buildDeps='software-properties-common git libtool cmake python-dev python3-p
     apt-get update && \
     apt-get install -y \
         python \
-        python3.7 \
+        python3.10 \
         python-pkg-resources \
         python3-pkg-resources \
         fp-compiler \
