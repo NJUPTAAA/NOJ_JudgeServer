@@ -47,7 +47,7 @@ RUN buildDeps='software-properties-common git libtool cmake python-dev python3-p
 RUN ln -sfn /usr/lib/jvm/java-17-openjdk-amd64/bin/java /usr/bin/java17 && \
     ln -sfn /usr/lib/jvm/java-17-openjdk-amd64/bin/javac /usr/bin/javac17 && \
     ln -sfn /usr/lib/jvm/java-8-openjdk-amd64/bin/java /usr/bin/java8 && \
-    ln -sfn /usr/lib/jvm/java-8-openjdk-amd64/bin/javac /usr/bin/java8
+    ln -sfn /usr/lib/jvm/java-8-openjdk-amd64/bin/javac /usr/bin/javac8
 
 ENV NJS_VERSION v0.3.2-Triangle
 
