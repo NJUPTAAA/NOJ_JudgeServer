@@ -1,0 +1,28 @@
+#!/bin/bash
+
+target_arch=$1
+exe_path=$2
+src_path=$3
+
+if (($target_arch == 32)); then
+    /usr/bin/nasm -f elf32 -o $exe_path.o $src_path
+    status=$?
+    if (($status == 0)); then
+        /usr/bin/gcc -m32 -o $exe_path $exe_path.o
+    else
+        echo ASM Compilation Fatal Error >&2
+        exit $status
+    fi
+elif (($target_arch == 64)); then
+    /usr/bin/nasm -f elf64 -o $exe_path}.o $src_path
+    status=$?
+    if (($status == 0)); then
+        /usr/bin/gcc -o $exe_path $exe_path.o
+    else
+        echo ASM Compilation Fatal Error >&2
+        exit $status
+    fi
+else
+    echo Unsupported Arch >&2
+    exit 1
+fi

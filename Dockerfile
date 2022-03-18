@@ -5,13 +5,13 @@ LABEL org.opencontainers.image.vendor="NJUPTAAA"
 LABEL org.opencontainers.image.documentation="https://njuptaaa.github.io/docs/#/judgeserver/deploy"
 
 COPY build/java_policy /etc
+COPY --chmod=0755 build/nojasm-compiler /usr/bin
 
 RUN buildDeps='software-properties-common git libtool cmake python-dev python3-pip python-pip libseccomp-dev wget ncurses-dev curl' && \
     export DEBIAN_FRONTEND=noninteractive && \
     apt-get update && \
     apt-get install -y \
         python \
-        python3.7 \
         python-pkg-resources \
         python3-pkg-resources \
         fp-compiler \
@@ -19,17 +19,21 @@ RUN buildDeps='software-properties-common git libtool cmake python-dev python3-p
         haskell-platform \
         gcc \
         g++ \
+        gcc-multilib \
+        nasm \
         ruby \
         mono-runtime \
         mono-mcs \
+        iverilog \
         apt-transport-https \
         lsb-release \
         ca-certificates \
         $buildDeps && \
     curl -sL https://deb.nodesource.com/setup_16.x | bash - && apt-get install -y nodejs && \
-    add-apt-repository ppa:openjdk-r/ppa && apt-get update && apt-get install -y openjdk-8-jdk && \
+    add-apt-repository ppa:deadsnakes/ppa && apt-get update && apt-get install -y python3.10 && \
+    add-apt-repository ppa:openjdk-r/ppa && apt-get update && apt-get install -y openjdk-8-jdk openjdk-17-jdk && \
     add-apt-repository ppa:longsleep/golang-backports && apt-get update && apt-get install -y golang-go && \
-    add-apt-repository ppa:ondrej/php && apt-get update && apt-get install -y php7.3-cli && \
+    add-apt-repository ppa:ondrej/php && apt-get update && apt-get install -y php8.1-cli && \
     cd /tmp && wget -O FreeBASIC.tar.gz https://versaweb.dl.sourceforge.net/project/fbc/FreeBASIC-1.09.0/Binaries-Linux/ubuntu-18.04/FreeBASIC-1.09.0-ubuntu-18.04-x86_64.tar.gz && \
     tar zxvf FreeBASIC.tar.gz && rm -f FreeBASIC.tar.gz && cd /tmp/FreeBASIC-1.09.0-ubuntu-18.04-x86_64 && ./install.sh -i && cd /tmp && rm -rf /tmp/FreeBASIC-1.09.0-ubuntu-18.04-x86_64 && \
     pip3 install -I --no-cache-dir psutil gunicorn flask requests idna && \
@@ -41,7 +45,12 @@ RUN buildDeps='software-properties-common git libtool cmake python-dev python3-p
     mkdir -p /code && \
     useradd -u 12001 compiler && useradd -u 12002 code && useradd -u 12003 spj && usermod -a -G code spj
 
-ENV NJS_VERSION v0.3.0-Triangle
+RUN ln -sfn /usr/lib/jvm/java-17-openjdk-amd64/bin/java /usr/bin/java17 && \
+    ln -sfn /usr/lib/jvm/java-17-openjdk-amd64/bin/javac /usr/bin/javac17 && \
+    ln -sfn /usr/lib/jvm/java-8-openjdk-amd64/bin/java /usr/bin/java8 && \
+    ln -sfn /usr/lib/jvm/java-8-openjdk-amd64/bin/javac /usr/bin/javac8
+
+ENV NJS_VERSION v0.3.2-Triangle
 
 ADD server /code
 WORKDIR /code
