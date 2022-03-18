@@ -19,6 +19,8 @@ RUN buildDeps='software-properties-common git libtool cmake python-dev python3-p
         haskell-platform \
         gcc \
         g++ \
+        gcc-multilib \
+        nasm \
         ruby \
         mono-runtime \
         mono-mcs \
