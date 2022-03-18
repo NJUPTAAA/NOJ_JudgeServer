@@ -21,16 +21,16 @@ Since `v0.3.0` all version are pre-released on *Github Container Registry* then 
 docker pull ghcr.io/njuptaaa/judge_server
 ```
 
-You might want to specify a certain version of JudgeServer, for example, if you are using NOJ `v0.18.0`, you need at least JudgeServer `v0.3.0` for SPJ supporting libraries to function properly:
+You might want to specify a certain version of JudgeServer, for example, if you are using NOJ `v0.18.0`, you need at least JudgeServer `v0.3.1` for SPJ supporting libraries and Node.js compiler to function properly:
 
 ```bash
-docker pull njuptaaa/judge_server:v0.3.0
+docker pull njuptaaa/judge_server:v0.3.1
 ```
 
-You can download latest experimental build by using `master` tag, they are latest for sure, but may contain developing features that your NOJ version does not currently support:
+You can download latest experimental build by using `nightly` tag, they are latest for sure, but may contain developing features that your NOJ version does not currently support:
 
 ```bash
-docker pull njuptaaa/judge_server:master
+docker pull njuptaaa/judge_server:nightly
 ```
 
 ### Compile Yourself
@@ -41,7 +41,7 @@ You can compile NOJ JudgeServer yourself.
 docker build . -t njuptaaa/judge_server
 ```
 
-If you are using networks that have limited internet access, you can try using proxy to build. In the following example we using a proxy located on port 1080 of youe computer:
+If you are using networks that have limited internet access, you can try using proxy to build. In the following example we using a proxy located on port 1080 of your computer:
 
 ```bash
 docker build . -t njuptaaa/judge_server --build-arg http_proxy=http://host.docker.internal:1080 --build-arg https_proxy=http://host.docker.internal:1080
@@ -67,7 +67,7 @@ NOJ JudgeServer is driven by Babel Extension NOJ, see [Babel Extension NOJ](http
 |Python2|/usr/bin/python -m py_compile {src_path}<br>/usr/bin/python {exe_path}|
 |Python3|/usr/bin/python3.7 -m py_compile {src_path}<br>/usr/bin/python3.7 {exe_path}|
 |PHP7|/usr/bin/php {exe_path}|
-|Javascript|/usr/bin/jsc {exe_path}|
+|Node.js 16|/usr/bin/node --stack-size=65536 {exe_path}|
 |Go|/usr/bin/go build -o {exe_path} {src_path}|
 |C#|/usr/bin/mcs -optimize+ -out:{exe_path} {src_path}|
 |Ruby|/usr/bin/ruby {exe_path}|
