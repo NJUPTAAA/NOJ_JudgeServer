@@ -44,6 +44,11 @@ RUN buildDeps='software-properties-common git libtool cmake python-dev python3-p
     mkdir -p /code && \
     useradd -u 12001 compiler && useradd -u 12002 code && useradd -u 12003 spj && usermod -a -G code spj
 
+RUN ln -sfn /usr/lib/jvm/java-17-openjdk-amd64/bin/java /usr/bin/java17 && \
+    ln -sfn /usr/lib/jvm/java-17-openjdk-amd64/bin/javac /usr/bin/javac17 && \
+    ln -sfn /usr/lib/jvm/java-8-openjdk-amd64/bin/java /usr/bin/java8 && \
+    ln -sfn /usr/lib/jvm/java-8-openjdk-amd64/bin/javac /usr/bin/java8
+
 ENV NJS_VERSION v0.3.2-Triangle
 
 ADD server /code
