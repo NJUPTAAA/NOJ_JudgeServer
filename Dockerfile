@@ -24,6 +24,7 @@ RUN buildDeps='software-properties-common git libtool cmake python-dev python3-p
         ruby \
         mono-runtime \
         mono-mcs \
+        iverilog \
         apt-transport-https \
         lsb-release \
         ca-certificates \
@@ -43,7 +44,7 @@ RUN buildDeps='software-properties-common git libtool cmake python-dev python3-p
     mkdir -p /code && \
     useradd -u 12001 compiler && useradd -u 12002 code && useradd -u 12003 spj && usermod -a -G code spj
 
-ENV NJS_VERSION v0.3.0-Triangle
+ENV NJS_VERSION v0.3.2-Triangle
 
 ADD server /code
 WORKDIR /code
