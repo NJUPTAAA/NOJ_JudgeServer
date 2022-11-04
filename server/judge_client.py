@@ -125,10 +125,10 @@ class JudgeClient(object):
             user_output_file = os.path.join(user_output_dir, self._io_mode["output"])
             real_user_output_file = os.path.join(user_output_dir, "stdio.txt")
             shutil.copyfile(in_file, os.path.join(user_output_dir, self._io_mode["input"]))
-            kwargs = {"input_path": in_file, "output_path": real_user_output_file, "error_path": real_user_output_file}
+            kwargs = {"input_path": in_file, "output_path": real_user_output_file}
         else:
             real_user_output_file = user_output_file = os.path.join(self._submission_dir, test_case_file_id + ".out")
-            kwargs = {"input_path": in_file, "output_path": real_user_output_file, "error_path": real_user_output_file}
+            kwargs = {"input_path": in_file, "output_path": real_user_output_file}
 
         command = self._run_config["command"].format(exe_path=self._exe_path, exe_dir=os.path.dirname(self._exe_path),
                                                      max_memory=int(self._max_memory / 1024)).split(" ")
